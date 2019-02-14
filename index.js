@@ -11,6 +11,8 @@ let filename = __dirname + "/ui-tests/";
 // const jpegData2 = fs.readFileSync("image2.jpg");
 // const img2 = JPEG.decode(jpegData2);
 
+let currentImages = [];
+
 function screenshotsTest() {
   fs.readdir("./ui-tests", function (err, files) {
     if (err) throw err;
@@ -19,17 +21,41 @@ function screenshotsTest() {
     files.forEach(function (file) {
       images.push(file);
     });
-    console.log(images);
-    showImages(images);
+    // console.log(images);
+    //showImages(images);
+
+    //setInterval(() => console.log(images), 5000);
+    // currentImages = setInterval(() => images.splice(0, 1), 5000);
+    // console.log('==>', currentImages);
+
+
+    // if (myArray.length > 0)
+    //   myArray.splice(0, 1);
+    // else
+    //   window.clearInterval(timer);
+    let currentImages;
+
+    function updateImages() {
+      setInterval(nextImages, 5000);
+    }
+
+    function nextImages() {
+      currentImages = images.splice(0, 2);
+      console.log(currentImages);
+      showImages(currentImages);
+    }
+
+    updateImages();
 
 
   });
 }
 
 function showImages(images) {
-  for (let i = 0; i < images.length - 1; i = i + 2) {
+  console.log('==========>', images.length);
+  for (let i = 0; i < images.length - 1; i++) {
     console.log(`Image ${i}: ${filename}${images[i]}`);
-    console.log(`Image ${i+1}: ${filename}${images[i + 1]}`);
+    console.log(`Image ${i + 1}: ${filename}${images[i + 1]}`);
     const jpegData1 = fs.readFileSync(`${filename}${images[i]}`);
     const img1 = JPEG.decode(jpegData1);
 
