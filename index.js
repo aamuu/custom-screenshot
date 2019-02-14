@@ -11,7 +11,7 @@ let filename = __dirname + "/ui-tests/";
 // const jpegData2 = fs.readFileSync("image2.jpg");
 // const img2 = JPEG.decode(jpegData2);
 
-function images() {
+function screenshotsTest() {
   fs.readdir("./ui-tests", function (err, files) {
     if (err) throw err;
     let images = [];
@@ -21,6 +21,8 @@ function images() {
     });
     console.log(images);
     showImages(images);
+
+
   });
 }
 
@@ -60,4 +62,4 @@ function doneReading(originalImage, updatedImage) {
   diff.pack().pipe(fs.createWriteStream("diff.png"));
 }
 
-images();
+screenshotsTest();
